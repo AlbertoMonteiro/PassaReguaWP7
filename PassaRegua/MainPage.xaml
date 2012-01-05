@@ -35,12 +35,10 @@
 		</Grid.RowDefinitions>
 
 		<!--TitlePanel contains the name of the application and page title-->
-		<StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-			<TextBlock x:Name="PageTitle" Text="Passa a régua" FontSize="29.333" TextAlignment="Center"/>
-		</StackPanel>
+        <TextBlock x:Name="PageTitle" Text="Passa a régua" FontSize="40" TextAlignment="Center"/>
 
 		<!--ContentPanel - place additional content here-->
-		<Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+		<Grid x:Name="ContentPanel" Grid.Row="1" Margin="5,0,5,0">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="*"/>
 				<ColumnDefinition Width="*"/>
@@ -75,13 +73,13 @@
 			<TextBlock Grid.Column="1" Grid.Row="10" TextWrapping="Wrap" TextAlignment="Center" Foreground="Red" FontSize="40" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding ValorPorPessoaQueBebeu, Mode=OneWay, StringFormat=R$\{0:0.00\}}"/>
 			<TextBlock Grid.Row="11" TextWrapping="Wrap" Text="Sem bebida" TextAlignment="Center"/>
 			<TextBlock Grid.Column="1" Grid.Row="11" TextWrapping="Wrap" Text="Com bebida" TextAlignment="Center"/>
-			<TextBox Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Padding="0" Text="{Binding PessoasSemBeber, Mode=TwoWay}" TextAlignment="Right" InputScope="Number"/>
-			<TextBox Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" Padding="0" Text="{Binding PessoasQueBeberam, Mode=TwoWay}" TextAlignment="Right" InputScope="Number" />
-			<TextBox Grid.Column="1" Grid.Row="4" TextWrapping="Wrap" Padding="0" Text="{Binding ValorDaConta, Mode=TwoWay}" TextAlignment="Right" Style="{StaticResource TextBoxStyle1}"  InputScope="Number"/>
-			<TextBox Grid.Column="1" Grid.Row="5" TextWrapping="Wrap" Padding="0" Text="{Binding ValorEmBebida, Mode=TwoWay}" TextAlignment="Right" Style="{StaticResource TextBoxStyle1}"  InputScope="Number"/>
-			<TextBox Grid.Column="1" Grid.Row="6" TextWrapping="Wrap" Padding="0" Text="{Binding ValorDoServico, Mode=TwoWay}" TextAlignment="Right" Style="{StaticResource TextBoxStylePercent}"  InputScope="Number"/>
-			<TextBox Grid.Column="1" Grid.Row="7" TextWrapping="Wrap" Padding="0" Text="{Binding ValorExtra, Mode=TwoWay}" TextAlignment="Right" Style="{StaticResource TextBoxStyle1}"  InputScope="Number"/>
-            <Image Grid.Row="12" Grid.Column="1" Source="/PassaRegua;component/twitter.png" HorizontalAlignment="Center" VerticalAlignment="Center" Tap="Image_Tap"></Image>
+            <TextBox Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Padding="0" Text="{Binding PessoasSemBeber, Mode=TwoWay}" TextAlignment="Right" InputScope="CurrencyAmountAndSymbol" KeyUp="TextBoxKeyUp" GotFocus="TextBoxGotFocus" TextChanged="TextBoxTextChanged" />
+			<TextBox Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" Padding="0" Text="{Binding PessoasQueBeberam, Mode=TwoWay}" TextAlignment="Right" InputScope="CurrencyAmountAndSymbol" KeyUp="TextBoxKeyUp" GotFocus="TextBoxGotFocus" TextChanged="TextBoxTextChanged" />
+			<TextBox Grid.Column="1" Grid.Row="4" TextWrapping="Wrap" Padding="0" Text="{Binding ValorDaConta, Mode=TwoWay}" TextAlignment="Right" Style="{StaticResource TextBoxStyle1}"  InputScope="CurrencyAmountAndSymbol" KeyUp="TextBoxKeyUp" GotFocus="TextBoxGotFocus" TextChanged="TextBoxTextChanged" />
+			<TextBox Grid.Column="1" Grid.Row="5" TextWrapping="Wrap" Padding="0" Text="{Binding ValorEmBebida, Mode=TwoWay}" TextAlignment="Right" Style="{StaticResource TextBoxStyle1}"  InputScope="CurrencyAmountAndSymbol" KeyUp="TextBoxKeyUp" GotFocus="TextBoxGotFocus" TextChanged="TextBoxTextChanged" />
+			<TextBox Grid.Column="1" Grid.Row="6" TextWrapping="Wrap" Padding="0" Text="{Binding ValorDoServico, Mode=TwoWay}" TextAlignment="Right" Style="{StaticResource TextBoxStylePercent}"  InputScope="CurrencyAmountAndSymbol" KeyUp="TextBoxKeyUp" GotFocus="TextBoxGotFocus" TextChanged="TextBoxTextChanged" />
+			<TextBox Grid.Column="1" Grid.Row="7" TextWrapping="Wrap" Padding="0" Text="{Binding ValorExtra, Mode=TwoWay}" TextAlignment="Right" Style="{StaticResource TextBoxStyle1}"  InputScope="CurrencyAmountAndSymbol" KeyUp="TextBoxKeyUp" GotFocus="TextBoxGotFocus" TextChanged="TextBoxTextChanged" />
+            <Image Grid.Row="12" Grid.Column="1" Source="/PassaRegua;component/twitter.png" HorizontalAlignment="Center" VerticalAlignment="Center" Tap="ImageTap"></Image>
         </Grid>
 	</Grid>
 

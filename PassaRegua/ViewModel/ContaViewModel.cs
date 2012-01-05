@@ -59,6 +59,7 @@ namespace PassaRegua.ViewModel
                     MessageBox.Show("Valor não pode ser superior ao valor da total conta.", "Passa a régua", MessageBoxButton.OK);
                     _valorEmBebida = 0;
                     AllChanged();
+                    throw new Exception("Pau");
                 }
                 else
                 {

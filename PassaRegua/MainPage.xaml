@@ -1,34 +1,27 @@
-﻿<phone:PhoneApplicationPage 
-    x:Class="PassaRegua.MainPage"
+﻿<phone:PhoneApplicationPage
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:PassaRegua_ViewModel="clr-namespace:PassaRegua.ViewModel" 
+    x:Class="PassaRegua.MainPage"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
-    FontFamily="{StaticResource PhoneFontFamilyNormal}"
-    FontSize="{StaticResource PhoneFontSizeNormal}"
-    Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     shell:SystemTray.IsVisible="True">
-
-    <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="MY APPLICATION" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="page name" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
-        </StackPanel>
-
-        <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0"></Grid>
-    </Grid>
+	<phone:PhoneApplicationPage.Resources>
+		<PassaRegua_ViewModel:ContaViewModel x:Key="ContaViewModelDataSource" d:IsDataSource="True"/>
+		<Style TargetType="TextBlock">
+			<Setter Property="Foreground" Value="Black"/>
+			<Setter Property="FontFamily" Value="Courier New"/>
+			<Setter Property="FontSize" Value="24"/>
+			<Setter Property="FontWeight" Value="Bold"/>
+		</Style>
+	</phone:PhoneApplicationPage.Resources>
+	<phone:PhoneApplicationPage.DataContext>
+		<Binding Source="{StaticResource ContaViewModelDataSource}"/>
+	</phone:PhoneApplicationPage.DataContext>
  
     <!--Sample code showing usage of ApplicationBar-->
     <!--<phone:PhoneApplicationPage.ApplicationBar>
@@ -41,5 +34,66 @@
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>-->
+
+	<phone:PhoneApplicationPage.Foreground>
+		<StaticResource ResourceKey="PhoneForegroundBrush"/>
+	</phone:PhoneApplicationPage.Foreground>
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="#FFF3DB9D" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock x:Name="PageTitle" Text="Passa a régua" FontSize="29.333" TextAlignment="Center"/>
+        </StackPanel>
+
+        <!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+        	<Grid.ColumnDefinitions>
+        		<ColumnDefinition Width="*"/>
+        		<ColumnDefinition Width="*"/>
+        	</Grid.ColumnDefinitions>
+        	<Grid.RowDefinitions>
+        		<RowDefinition Height="40"/>
+        		<RowDefinition Height="*"/>
+        		<RowDefinition Height="*"/>
+        		<RowDefinition Height="20"/>
+        		<RowDefinition Height="*"/>
+        		<RowDefinition Height="*"/>
+        		<RowDefinition Height="*"/>
+        		<RowDefinition Height="*"/>
+        		<RowDefinition Height="20"/>
+        		<RowDefinition Height="30"/>
+        		<RowDefinition Height="*"/>
+        		<RowDefinition Height="30"/>
+        		<RowDefinition Height="*"/>
+        	</Grid.RowDefinitions>
+			<Line Stroke="Black" StrokeDashArray="1, 1" X2="{Binding ActualWidth, ElementName=LayoutRoot}" Grid.ColumnSpan="2" StrokeThickness="10" />
+        	<TextBlock TextWrapping="Wrap" Text="Nº de Pessoas que" Grid.ColumnSpan="2" Margin="0,10,0,0" />
+        	<TextBlock Grid.Row="1" TextWrapping="Wrap" Text="Não Beberam:" d:LayoutOverrides="Width" VerticalAlignment="Center" />
+        	<TextBlock Grid.Row="2" TextWrapping="Wrap" Text="Beberam:" d:LayoutOverrides="Height" VerticalAlignment="Center"/>
+			<Line Grid.Row="3" Stroke="Black" StrokeDashArray="1, 1" X2="{Binding ActualWidth, ElementName=LayoutRoot}" Grid.ColumnSpan="2" VerticalAlignment="Center" StrokeThickness="10" />
+        	<TextBlock Grid.Row="4" TextWrapping="Wrap" Text="Valor da conta:" d:LayoutOverrides="Width, Height" VerticalAlignment="Center"/>
+        	<TextBlock Grid.Row="5" TextWrapping="Wrap" Text="Valor em bebida:" VerticalAlignment="Center"/>
+        	<TextBlock Grid.Row="6" TextWrapping="Wrap" Text="Serviço :" VerticalAlignment="Center"/>
+        	<TextBlock Grid.Row="7" TextWrapping="Wrap" Text="Extra:" VerticalAlignment="Center"/>
+			<Line Grid.Row="8" Stroke="Black" StrokeDashArray="1, 1" X2="{Binding ActualWidth, ElementName=LayoutRoot}" Grid.ColumnSpan="2" VerticalAlignment="Center" StrokeThickness="10" />
+        	<TextBlock Grid.Row="9" TextWrapping="Wrap" Text="Valor por pessoa" Grid.ColumnSpan="2" TextAlignment="Center"/>
+            <TextBlock Grid.Row="10" TextWrapping="Wrap" TextAlignment="Center" Foreground="Red" Text="{Binding ValorPorPessoaSemBeber, Mode=TwoWay, StringFormat=' \{0:C\}'}"/>
+            <TextBlock Grid.Column="1" Grid.Row="10" TextWrapping="Wrap" TextAlignment="Center" Foreground="Red" Text="{Binding ValorPorPessoaQueBebeu, Mode=TwoWay, StringFormat=' \{0:C\}'}"/>
+        	<TextBlock Grid.Row="11" TextWrapping="Wrap" Text="Sem bebida" TextAlignment="Center"/>
+        	<TextBlock Grid.Column="1" Grid.Row="11" TextWrapping="Wrap" Text="Com bebida" TextAlignment="Center"/>
+            <TextBox Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Padding="0" Text="{Binding PessoasSemBeber, Mode=TwoWay}" TextAlignment="Right" />
+            <TextBox Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" Padding="0" Text="{Binding PessoasQueBeberam, Mode=TwoWay}" TextAlignment="Right" />
+            <TextBox Grid.Column="1" Grid.Row="4" TextWrapping="Wrap" Padding="0" Text="{Binding ValorDaConta, Mode=TwoWay}" TextAlignment="Right" Style="{StaticResource TextBoxStyle1}" />
+            <TextBox Grid.Column="1" Grid.Row="5" TextWrapping="Wrap" Padding="0" Text="{Binding ValorEmBebida, Mode=TwoWay}" TextAlignment="Right" Style="{StaticResource TextBoxStyle1}" />
+            <TextBox Grid.Column="1" Grid.Row="6" TextWrapping="Wrap" Padding="0" Text="{Binding ValorDoServico, Mode=TwoWay}" TextAlignment="Right" Style="{StaticResource TextBoxStylePercent}" />
+            <TextBox Grid.Column="1" Grid.Row="7" TextWrapping="Wrap" Padding="0" Text="{Binding ValorExtra, Mode=TwoWay}" TextAlignment="Right" Style="{StaticResource TextBoxStyle1}" />
+        </Grid>
+    </Grid>
 
 </phone:PhoneApplicationPage>

@@ -1,27 +1,19 @@
-﻿using System.Globalization;
-using System.Threading;
-using System.Windows;
-using Microsoft.Phone.Controls;
-using PassaRegua.ViewModel;
+﻿using Microsoft.Phone.Tasks;
 
 namespace PassaRegua
 {
-    public partial class MainPage : PhoneApplicationPage
+    public partial class MainPage
     {
         // Constructor
         public MainPage()
+        {			
+			InitializeComponent();
+        }
+
+        private void Image_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("pt-BR");
-            InitializeComponent();
-            var contaViewModel = new ContaViewModel
-            {
-                PessoasQueBeberam = 3,
-                PessoasSemBeber = 2,
-                ValorDaConta = new decimal(120.74),
-                ValorEmBebida = new decimal(38.55),
-                ValorExtra = 20
-            };
-            //DataContext = contaViewModel;
+            var share = new ShareStatusTask {Status = "Estou usando Passa a Régua para Windows Phone 7 by @AibertoMonteiro"};
+            share.Show();
         }
     }
 }

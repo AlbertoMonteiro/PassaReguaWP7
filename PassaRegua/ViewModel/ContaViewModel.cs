@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System;
+using System.Windows;
+using GalaSoft.MvvmLight;
 
 namespace PassaRegua.ViewModel
 {
@@ -52,8 +54,17 @@ namespace PassaRegua.ViewModel
             get { return _valorEmBebida; }
             set
             {
-                _valorEmBebida = value;
-                AllChanged();
+                if (value > _valorDaConta)
+                {
+                    MessageBox.Show("Valor não pode ser superior ao valor da total conta.", "Passa a régua", MessageBoxButton.OK);
+                    _valorEmBebida = 0;
+                    AllChanged();
+                }
+                else
+                {
+                    _valorEmBebida = value;
+                    AllChanged();
+                }
             }
         }
 
@@ -83,7 +94,7 @@ namespace PassaRegua.ViewModel
 
         private decimal ValorTotal
         {
-            get { return ValorDaConta + ValorExtra + (ValorExtra*ValorDoServico/100); }
+            get { return ValorDaConta + ValorExtra + (ValorDaConta * (ValorDoServico / 100)); }
         }
 
         private decimal TotalSemBebida
@@ -93,12 +104,12 @@ namespace PassaRegua.ViewModel
 
         public decimal ValorPorPessoaSemBeber
         {
-            get { return TotalDePessoas != 0 ? TotalSemBebida/TotalDePessoas : 0; }
+            get { return TotalDePessoas != 0 && PessoasSemBeber > 0 ? TotalSemBebida / TotalDePessoas : 0; }
         }
 
         public decimal ValorPorPessoaQueBebeu
         {
-            get { return PessoasQueBeberam + ValorPorPessoaSemBeber > 0 ? ValorEmBebida/PessoasQueBeberam + ValorPorPessoaSemBeber : 0; }
+            get { return PessoasQueBeberam + ValorPorPessoaSemBeber > 0 ? ValorEmBebida / PessoasQueBeberam + (TotalSemBebida / TotalDePessoas) : 0; }
         }
 
         private void AllChanged()
